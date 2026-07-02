@@ -5,11 +5,6 @@
   "days_live": 4,
   "n_trades": 18,
   "n_snapshots": 10,
-  "sharpe": -11.22,
-  "volatility_pct": 7.1,
-  "max_drawdown_pct": -0.64,
-  "best_day_pct": 0.0,
-  "worst_day_pct": -0.64,
   "curve": [
     {
       "t": "2026-06-29 23:04",
@@ -52,5 +47,6 @@
       "v": 99.379
     }
   ],
-  "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed."
+  "warming_up": true,
+  "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed. Risk/return stats appear once enough history has accrued."
 }
