@@ -1,10 +1,15 @@
 {
-  "as_of": "2026-07-02 02:38 UTC",
+  "as_of": "2026-07-02 03:15 UTC",
   "mode": "paper",
-  "total_return_pct": 0.02,
-  "days_live": 2,
-  "n_trades": 10,
-  "n_snapshots": 8,
+  "total_return_pct": -0.62,
+  "days_live": 4,
+  "n_trades": 18,
+  "n_snapshots": 10,
+  "sharpe": -11.22,
+  "volatility_pct": 7.1,
+  "max_drawdown_pct": -0.64,
+  "best_day_pct": 0.0,
+  "worst_day_pct": -0.64,
   "curve": [
     {
       "t": "2026-06-29 23:04",
@@ -37,6 +42,14 @@
     {
       "t": "2026-06-30 00:24",
       "v": 100.016
+    },
+    {
+      "t": "2026-07-02 02:55",
+      "v": 100.016
+    },
+    {
+      "t": "2026-07-02 03:11",
+      "v": 99.379
     }
   ],
   "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed."

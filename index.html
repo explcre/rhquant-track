@@ -20,13 +20,13 @@ svg{width:100%;height:260px;display:block}
 .foot{color:var(--mut);font-size:11px;margin-top:18px;line-height:1.6}
 </style></head><body><div class="wrap">
 <h1>rhquant — paper trading track record<span class="badge">PAPER</span></h1>
-<div class="sub">Systematic strategy performance · updated 2026-07-02 02:38 UTC</div>
+<div class="sub">Systematic strategy performance · updated 2026-07-02 03:15 UTC</div>
 <div class="tiles" id="tiles"></div>
 <div class="card"><h2>Equity curve (indexed to 100 at start)</h2><svg id="chart" viewBox="0 0 900 260" preserveAspectRatio="none"></svg></div>
 <div class="foot" id="foot"></div>
 </div>
 <script>
-const D = {"as_of": "2026-07-02 02:38 UTC", "mode": "paper", "total_return_pct": 0.02, "days_live": 2, "n_trades": 10, "n_snapshots": 8, "curve": [{"t": "2026-06-29 23:04", "v": 100.0}, {"t": "2026-06-29 23:10", "v": 100.0}, {"t": "2026-06-29 23:15", "v": 100.0}, {"t": "2026-06-29 23:25", "v": 100.016}, {"t": "2026-06-29 23:40", "v": 100.016}, {"t": "2026-06-30 00:02", "v": 100.016}, {"t": "2026-06-30 00:12", "v": 100.016}, {"t": "2026-06-30 00:24", "v": 100.016}], "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed."};
+const D = {"as_of": "2026-07-02 03:15 UTC", "mode": "paper", "total_return_pct": -0.62, "days_live": 4, "n_trades": 18, "n_snapshots": 10, "sharpe": -11.22, "volatility_pct": 7.1, "max_drawdown_pct": -0.64, "best_day_pct": 0.0, "worst_day_pct": -0.64, "curve": [{"t": "2026-06-29 23:04", "v": 100.0}, {"t": "2026-06-29 23:10", "v": 100.0}, {"t": "2026-06-29 23:15", "v": 100.0}, {"t": "2026-06-29 23:25", "v": 100.016}, {"t": "2026-06-29 23:40", "v": 100.016}, {"t": "2026-06-30 00:02", "v": 100.016}, {"t": "2026-06-30 00:12", "v": 100.016}, {"t": "2026-06-30 00:24", "v": 100.016}, {"t": "2026-07-02 02:55", "v": 100.016}, {"t": "2026-07-02 03:11", "v": 99.379}], "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed."};
 const el=id=>document.getElementById(id);
 const tiles=[
  ['Total return', (D.total_return_pct>=0?'+':'')+D.total_return_pct+'%', D.total_return_pct>=0?'pos':'neg'],
