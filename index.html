@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>rhquant · paper track record</title>
+<style>
+:root{--bg:#0b0e14;--panel:#141a23;--line:#283042;--txt:#d6deeb;--mut:#7d8aa3;--blu:#2d7dff;--grn:#26a69a;--red:#ef5350}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);
+font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:900px;margin:0 auto;padding:28px 18px}
+h1{font-size:20px;margin:0 0 2px}.sub{color:var(--mut);font-size:13px;margin-bottom:20px}
+.badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:11px;font-weight:700;
+background:rgba(38,166,154,.12);color:var(--grn);border:1px solid var(--grn);margin-left:8px}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:20px}
+.tile{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.tile .l{color:var(--mut);font-size:11px;text-transform:uppercase;letter-spacing:.6px}
+.tile .v{font-size:22px;font-weight:700;margin-top:3px;font-variant-numeric:tabular-nums}
+.pos{color:var(--grn)}.neg{color:var(--red)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px}
+.card h2{font-size:13px;margin:0 0 10px;color:var(--mut);font-weight:600}
+svg{width:100%;height:260px;display:block}
+.foot{color:var(--mut);font-size:11px;margin-top:18px;line-height:1.6}
+</style></head><body><div class="wrap">
+<h1>rhquant — paper trading track record<span class="badge">PAPER</span></h1>
+<div class="sub">Systematic strategy performance · updated 2026-07-02 02:38 UTC</div>
+<div class="tiles" id="tiles"></div>
+<div class="card"><h2>Equity curve (indexed to 100 at start)</h2><svg id="chart" viewBox="0 0 900 260" preserveAspectRatio="none"></svg></div>
+<div class="foot" id="foot"></div>
+</div>
+<script>
+const D = {"as_of": "2026-07-02 02:38 UTC", "mode": "paper", "total_return_pct": 0.02, "days_live": 2, "n_trades": 10, "n_snapshots": 8, "curve": [{"t": "2026-06-29 23:04", "v": 100.0}, {"t": "2026-06-29 23:10", "v": 100.0}, {"t": "2026-06-29 23:15", "v": 100.0}, {"t": "2026-06-29 23:25", "v": 100.016}, {"t": "2026-06-29 23:40", "v": 100.016}, {"t": "2026-06-30 00:02", "v": 100.016}, {"t": "2026-06-30 00:12", "v": 100.016}, {"t": "2026-06-30 00:24", "v": 100.016}], "disclaimer": "Paper (simulated) trading, for research/education. Not financial advice. No positions, amounts, or holdings disclosed."};
+const el=id=>document.getElementById(id);
+const tiles=[
+ ['Total return', (D.total_return_pct>=0?'+':'')+D.total_return_pct+'%', D.total_return_pct>=0?'pos':'neg'],
+ ['Max drawdown', (D.max_drawdown_pct??'—')+(D.max_drawdown_pct!=null?'%':''),'neg'],
+ ['Sharpe', D.sharpe??'—',''],
+ ['Volatility', (D.volatility_pct??'—')+(D.volatility_pct!=null?'%':''),''],
+ ['Days live', D.days_live,''],
+ ['Trades', D.n_trades,''],
+];
+el('tiles').innerHTML=tiles.map(t=>`<div class="tile"><div class="l">${t[0]}</div><div class="v ${t[2]}">${t[1]}</div></div>`).join('');
+el('foot').textContent=D.disclaimer+'  ·  '+D.n_snapshots+' snapshots.';
+// inline SVG area chart (no external libs)
+const c=D.curve||[]; const svg=el('chart'); const W=900,H=260,P=8;
+if(c.length>1){
+ const vs=c.map(p=>p.v); const mn=Math.min(...vs,100),mx=Math.max(...vs,100);
+ const x=i=>P+i*(W-2*P)/(c.length-1); const y=v=>H-P-(v-mn)/((mx-mn)||1)*(H-2*P);
+ let d=`M ${x(0)} ${y(vs[0])}`; vs.forEach((v,i)=>d+=` L ${x(i)} ${y(v)}`);
+ const area=d+` L ${x(vs.length-1)} ${H-P} L ${x(0)} ${H-P} Z`;
+ const base=y(100);
+ svg.innerHTML=`<defs><linearGradient id="g" x1="0" y1="0" x2="0" y2="1">
+   <stop offset="0" stop-color="#2d7dff" stop-opacity=".35"/><stop offset="1" stop-color="#2d7dff" stop-opacity="0"/></linearGradient></defs>
+   <line x1="${P}" y1="${base}" x2="${W-P}" y2="${base}" stroke="#7d8aa3" stroke-dasharray="4 4" stroke-width="1"/>
+   <path d="${area}" fill="url(#g)"/><path d="${d}" fill="none" stroke="#2d7dff" stroke-width="2"/>`;
+} else { svg.innerHTML=`<text x="450" y="130" fill="#7d8aa3" text-anchor="middle" font-size="13">Curve builds as the strategy runs (${c.length} point${c.length==1?'':'s'} so far)</text>`; }
+</script></body></html>
